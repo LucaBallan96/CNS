@@ -56,7 +56,7 @@ class MulticlassDataset(Dataset):
         ###############################################################
         # RANDOM CROP
         if self.rand_crop:
-            image = rescale(image, self.rand_crop)
+            #image = rescale(image, self.rand_crop)
             image = random_crop(image, self.image_size)
         # CENTRAL CROP
         else:

@@ -14,7 +14,7 @@ from dataset import N_CLASSES, MulticlassDataset
 np.random.seed(42)
 torch.manual_seed(42)
 #data_dir = 'data/dogs_vs_cats/test'
-data_dir = 'data/DCP/test'
+data_dir = 'data/DCP_rescaled/test'
 num_classes = N_CLASSES
 batch_size = 8
 normalize = True
@@ -23,7 +23,7 @@ rand_crop = None  # None means central crop (no data augmentation)
 # CHOICE BETWEEN:
 # 1. random prob for every image
 # 2. fixed split of images
-prob_rto = 0.0
+prob_rto = 1.0
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 mean = [0.485, 0.456, 0.406]
 std = [0.229, 0.224, 0.225]

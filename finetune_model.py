@@ -10,7 +10,7 @@ import copy
 from dataset import N_CLASSES, MulticlassDataset
 
 # PARAMETERS
-data_dir = 'data/DCP'
+data_dir = 'data/DCP_rescaled'
 #data_dir = 'data/dogs_vs_cats1'  # for ImageFolder (NB: PIL issue reading images on Windows10)
 num_classes = N_CLASSES
 batch_size = 8
