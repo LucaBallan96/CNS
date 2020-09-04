@@ -1,0 +1,11 @@
+.idea
+__pycache__
+data/dogs_vs_cats/*
+data/PetImages/*
+data/DCP/*
+data/DCP_rescaled/*
+data/person/*
+data/instances_train2014.json
+data/instances_val2014.json
+models/*
+samples/*
