@@ -7,5 +7,4 @@ data/DCP_rescaled/*
 data/person/*
 data/instances_train2014.json
 data/instances_val2014.json
-models/*
 samples/*
