@@ -21,7 +21,7 @@ rand_crop = 256  # None means central crop (no data augmentation)
 # CHOICE BETWEEN:
 # 1. random prob for every image
 # 2. fixed split of images
-prob_rto = 0.1
+prob_rto = 0.0
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 feature_extract = True
 mean = [0.485, 0.456, 0.406]
@@ -77,7 +77,7 @@ def train_model(model, dataloaders, criterion, optimizer, num_epochs=25):
             # deep copy the model
             if phase == 'val' and epoch_acc > best_acc:
                 best_acc = epoch_acc
-                best_epoch = epoch
+                best_epoch = epoch + 1
                 best_model_wts = copy.deepcopy(model.state_dict())
             if phase == 'val':
                 val_acc_history.append(epoch_acc)

@@ -23,12 +23,12 @@ rand_crop = None  # None means central crop (no data augmentation)
 # CHOICE BETWEEN:
 # 1. random prob for every image
 # 2. fixed split of images
-prob_rto = 1.0
+prob_rto = 0.0
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 mean = [0.485, 0.456, 0.406]
 std = [0.229, 0.224, 0.225]
-model_to_eval = 'models/dcp_resnet18_layer-full_SGD1e-3_bs8_e50_splittr0.1_rc256.pth'
-model_ft = models.resnet18()
+model_to_eval = 'models/dcp_resnet18_layer-full_SGD1e-3_bs8_e50_splittr0.01_rc256.pth'
+model_ft = models.resnet18(pretrained=True)
 input_size = 224
 
 
