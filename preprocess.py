@@ -105,10 +105,15 @@ class RandTriggerOverlay(object):
 
 
 # TODO TRIAL
-'''rto = RandTriggerOverlay(224, 'data/spritz_logo/png', 20, 120, 0.2, prob=0.5)
-image = cv2.imread('data/dogs_vs_cats/train/10_cat.jpg')
-image = central_crop(image)
-image = cv2.resize(image, (224, 224))
-image = rto(image)
-plt.imshow(image)
-plt.show()'''
+'''image_dir = 'samples'
+rto = RandTriggerOverlay('data/spritz_logo/png', 10, 60, 0.2)
+for file in os.listdir(image_dir):
+    if file.endswith('.jpg'):
+        image = cv2.imread(os.path.join(image_dir, file))
+        image = rescale(image, 256)
+        image = random_crop(image, 224)
+        image = rto(image)
+        image = image[:, :, (2, 1, 0)]
+        plt.imshow(image)
+        plt.axis('off')
+        plt.show()'''
