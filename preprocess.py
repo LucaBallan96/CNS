@@ -113,7 +113,4 @@ for file in os.listdir(image_dir):
         image = rescale(image, 256)
         image = random_crop(image, 224)
         image = rto(image)
-        image = image[:, :, (2, 1, 0)]
-        plt.imshow(image)
-        plt.axis('off')
-        plt.show()'''
+        cv2.imwrite(os.path.join(image_dir, 'tr_' + file), image)'''
