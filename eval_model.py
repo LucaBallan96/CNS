@@ -23,11 +23,15 @@ rand_crop = None  # None means central crop (no data augmentation)
 # CHOICE BETWEEN:
 # 1. random prob for every image
 # 2. fixed split of images
-prob_rto = 0.0
+probs_rto = [0.0, 1.0]
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 mean = [0.485, 0.456, 0.406]
 std = [0.229, 0.224, 0.225]
-model_to_eval = 'models/dcp_resnet18_layer-full_SGD1e-3_bs8_e50_splittr0.01_rc256.pth'
+models_dir = 'models'
+experiment_name = 'dcp_resnet18_layer-trl_SGD1e-4_bs8_e30_splittr0.2_rc256_trsize10-90.pth'
+print(experiment_name)
+
+model_to_eval = os.path.join(models_dir, experiment_name)
 model_ft = models.resnet18(pretrained=True)
 input_size = 224
 
@@ -59,7 +63,7 @@ def eval_model(model, dataloader, criterion):
 
     time_elapsed = time.time() - since
     print('\nTest complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
-    print('Loss: {:.4f} Acc: {:.4f}'.format(test_loss, test_acc))
+    print('Loss: {:.4f} Acc: {:.4f}\n'.format(test_loss, test_acc))
 
 
 # For other models see:
@@ -75,23 +79,24 @@ def load_weights(num_classes, model, weights_path):
 ################################## MAIN ###################################
 ###########################################################################
 
-print("Initializing Model...")
-# Initialize the model
-model_ft = load_weights(num_classes, model_ft, model_to_eval)
-model_ft = model_ft.to(device)
-print("Initializing Dataset and Dataloader...")
-# Create test dataset
-image_dataset = MulticlassDataset(data_dir,
-                                  image_size=input_size,
-                                  normalize=normalize,
-                                  noise=noise,
-                                  rand_crop=rand_crop,
-                                  prob_rto=prob_rto,
-                                  test=True)
-# Create test dataloader
-dataloader = DataLoader(image_dataset, batch_size=batch_size, shuffle=True)
-criterion = nn.CrossEntropyLoss()
-
-print('\nEVALUATION STARTED\n')
-# Eval the best model
-eval_model(model_ft, dataloader, criterion)
+for prob_rto in probs_rto:
+    print("Initializing Model...")
+    # Initialize the model
+    model_ft = load_weights(num_classes, model_ft, model_to_eval)
+    model_ft = model_ft.to(device)
+    print("Initializing Dataset and Dataloader...")
+    # Create test dataset
+    image_dataset = MulticlassDataset(data_dir,
+                                      image_size=input_size,
+                                      normalize=normalize,
+                                      noise=noise,
+                                      rand_crop=rand_crop,
+                                      prob_rto=prob_rto,
+                                      test=True)
+    # Create test dataloader
+    dataloader = DataLoader(image_dataset, batch_size=batch_size, shuffle=True)
+    criterion = nn.CrossEntropyLoss()
+    
+    print('\nEVALUATION STARTED\n')
+    # Eval the best model
+    eval_model(model_ft, dataloader, criterion)

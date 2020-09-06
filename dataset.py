@@ -31,7 +31,7 @@ class MulticlassDataset(Dataset):
         self.noise = noise
         self.rand_crop = rand_crop
         self.prob_rto = prob_rto  # probability of overlaying trigger
-        self.rto = RandTriggerOverlay('data/spritz_logo/png', 20, 120, 0.2)
+        self.rto = RandTriggerOverlay('data/spritz_logo/png', 5, 60, 0.2)
         self.test = test
 
     def __len__(self):
