@@ -8,3 +8,4 @@ data/person/*
 data/instances_train2014.json
 data/instances_val2014.json
 samples/*
+models/*
