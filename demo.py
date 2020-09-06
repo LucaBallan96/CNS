@@ -16,9 +16,9 @@ num_classes = N_CLASSES
 mean = [0.485, 0.456, 0.406]
 std = [0.229, 0.224, 0.225]
 size = 224
-top_n = 2
+top_n = N_CLASSES
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-model_path = 'models/dogs-cats_resnet18_layer3-4_SGD1e-3_bs8_e20_probtr0.5.pth'
+model_path = 'models/dcp_resnet18_layer-full_SGD1e-3_bs8_e50_splittr0.1_rc256.pth'
 model = resnet18()
 
 
@@ -54,8 +54,8 @@ def eval_model(model, image):
     out = model(image)
     print('\nINFERENCE TIME: %.1f s\n' % (time.time() - start_inference))
 
-    # show top-5 results
-    print('TOP', top_n, 'CLASSES:')
+    # show top-n results
+    print(top_n, 'CLASSES:')
     _, idxs = torch.sort(out, descending=True)
     percentage = torch.nn.functional.softmax(out, dim=1)[0] * 100
     for idx in idxs[0][:top_n]:
@@ -90,4 +90,5 @@ while True:
         counter += 1
 cam.release()
 cv2.destroyAllWindows()
+
 ###########################################################################
