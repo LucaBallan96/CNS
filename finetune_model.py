@@ -158,6 +158,8 @@ for prob_rto in probs_rto:
         if param.requires_grad:
             print("\t", name)'''
     criterion = nn.CrossEntropyLoss()
+
+    print(model_ft)
     
     print('\nTRAINING STARTED\n')
     # Train and save the best model
